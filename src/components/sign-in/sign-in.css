@@ -1,0 +1,67 @@
+.signin-form{
+  background: white;
+  border-radius: 8px;
+  padding: .9rem 1.3rem 1rem 1.3rem;
+  max-width: 385px;
+  width: 100%;
+  margin: 0 auto;
+}
+.signin-form h1 {
+  font-size: 25px;
+}
+.signin-form h2{
+  font-size: 20px;
+  padding: 0;
+  margin-bottom: 10px;
+}
+.signin-form form{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.signin-form label{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 15px;
+  margin-right: 25px;
+}
+.signin-form label>span {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.signin-form label>input, select{
+  height: 30px;
+  border-radius: 5px;
+  background: #fff;
+  border: 1px solid #777;
+  padding: 3px 12px;
+  width: 100%;
+}
+.signin-form label>select{
+  height: 38px;
+}
+.signin-form button{
+  background: #000;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 0;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 1.1rem;
+  transition: all .3 linear;
+  width: 100%;
+}
+.signin-form button:hover{
+  opacity: .8;
+}
+.signin-form button:focus{
+  outline: 0;
+}
+.signin-form p{
+  font-size: 15px;
+}
+.signin-form p:last-child{
+    margin: 0;
+}

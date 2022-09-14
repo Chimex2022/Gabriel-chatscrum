@@ -1,12 +1,13 @@
+
 const taskList = [
-  { id: 1, item: "Adding Drag and Drop" },
-  { id: 2, item: "Create user input instance array" },
-  { id: 3, item: "Separating the task component" },
-  { id: 4, item: "Mapping through user input instance" },
-  { id: 5, item: "Installing React-beautiful-DnD" },
-  { id: 6, item: "Importing and Using object from r-b-dnd library" },
-  { id: 7, item: "Writing the drag-end function" },
-  { id: 7, item: "Previewing our chatscrum application" },
+  { id: "one", task: "Adding Drag and Drop" },
+  { id: "two", task: "Create user input instance array" },
+  { id: "three", task: "Separating the task component" },
+  { id: "four", task: "Mapping through user input instance" },
+  { id: "five", task: "Installing React-beautiful-DnD" },
+  { id: "six", task: "Importing and Using object from r-b-dnd library" },
+  { id: "seven", task: "Writing the drag-end function" },
+  { id: "eight", task: "Previewing our chatscrum application" },
 ];
 
 export default taskList;

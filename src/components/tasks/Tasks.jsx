@@ -1,6 +1,25 @@
 import { useState } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import taskList from "../../static/tasks";
+
+const Task = ({ id, index, item }) => {
+  return (
+    <Draggable draggableId={id} index={index}>
+      {(provided) => {
+        return (
+          <div
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            className="single_task"
+          >
+            {item}
+          </div>
+        );
+      }}
+    </Draggable>
+  );
+};
 
 export default function Tasks() {
   const [taskRoll, setTaskRoll] = useState(taskList);
@@ -28,24 +47,10 @@ export default function Tasks() {
                   ref={provided.innerRef}
                 >
                   <h3>Weekly Tasks</h3>
-                  {taskRoll.map(({ id, item }, idx) => (
-                    <Draggable key={id} draggableId={id} index={idx}>
-                      {(provided) => {
-                        console.log(item);
-                        return (
-                          <p
-                            className="single_task"
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            ref={provided.innerRef}
-                          >
-                            {item}
-                          </p>
-                        );
-                      }}
-                      {provided.placeholder}
-                    </Draggable>
-                  ))}
+                  {taskRoll.map(({ id, task }, idx) => {
+                    return <Task key={id} item={task} id={id} index={idx} />;
+                  })}
+                  {provided.placeholder}
                 </div>
               );
             }}
@@ -55,7 +60,6 @@ export default function Tasks() {
             {(provided) => {
               return (
                 <div
-                  id="tasketer"
                   className="daily box"
                   {...provided.droppableProps}
                   ref={provided.innerRef}

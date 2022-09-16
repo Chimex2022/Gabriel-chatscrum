@@ -1,36 +1,44 @@
 import { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
-import taskList from "../../static/tasks";
 
-const Task = ({ id, index, item }) => {
-  return (
-    <Draggable draggableId={id} index={index}>
-      {(provided) => {
-        return (
-          <div
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            className="single_task"
-          >
-            {item}
-          </div>
-        );
-      }}
-    </Draggable>
-  );
-};
+// const Task = ({ id, index, name, time, deleteTask, scrumgoalhistory_set }) => {
+//   return (
+//     <Draggable draggableId={id} index={index}>
+//       {(provided) => {
+//         return (
+//           <div
+//             ref={provided.innerRef}
+//             {...provided.draggableProps}
+//             {...provided.dragHandleProps}
+//             className="single_task"
+//             onClick={deleteTask}
+//           >
+//             {name}{" "}
+//             <div>
+//               {time.slice(0, 10)} at {time.slice(12, 16)}
+//             </div>
+//             <div className="brown">
+//               {scrumgoalhistory_set.map(({ id, done_by }) => (
+//                 <p key={id}>{done_by}</p>
+//               ))}
+//             </div>
+//           </div>
+//         );
+//       }}
+//     </Draggable>
+//   );
+// };
 
-export default function Tasks() {
-  const [taskRoll, setTaskRoll] = useState(taskList);
+export default function Tasks({ data, deleteTask }) {
+  const [taskRoll, setTaskRoll] = useState(data);
 
   const handleOnDragEnd = (result) => {
     if (!result.destination) return;
-    const items = Array.from(taskRoll);
-    const [reorderedItems] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItems);
+    const tasks = Array.from(taskRoll);
+    const [reorderedItems] = tasks.splice(result.source.index, 1);
+    tasks.splice(result.destination.index, 0, reorderedItems);
 
-    setTaskRoll(items);
+    setTaskRoll(tasks);
   };
 
   return (
@@ -47,9 +55,37 @@ export default function Tasks() {
                   ref={provided.innerRef}
                 >
                   <h3>Weekly Tasks</h3>
-                  {taskRoll.map(({ id, task }, idx) => {
-                    return <Task key={id} item={task} id={id} index={idx} />;
-                  })}
+                  {data.map(
+                    ({ id, name, time_created, scrumgoalhistory_set }, idx) => {
+                      return (
+                        <Draggable draggableId={`${id}`} index={idx} key={id}>
+                          {(provided) => {
+                            return (
+                              <div
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                className="single_task"
+                                onClick={deleteTask}
+                              >
+                                {name}{" "}
+                                <div>
+                                  {time_created.slice(0, 10)} at {time_created.slice(12, 16)}
+                                </div>
+                                <div className="brown">
+                                  {scrumgoalhistory_set.map(
+                                    ({ id, done_by }) => (
+                                      <p key={id}>{done_by}</p>
+                                    )
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          }}
+                        </Draggable>
+                      );
+                    }
+                  )}
                   {provided.placeholder}
                 </div>
               );

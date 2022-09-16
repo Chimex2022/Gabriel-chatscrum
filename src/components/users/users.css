@@ -1,0 +1,35 @@
+.users{
+  max-width: 400px;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+.users h4{
+  cursor: pointer;
+  background: #ccc;
+  padding: 10px 16px;
+  font-size: 24px;
+  font-weight: 600;
+}
+.users-list{
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #ccc;
+}
+.user{
+  font-size: 18px;
+  padding: 16px;
+  border-bottom: 1px solid #ccc;
+}
+.user span.fas{
+  margin-right: 15px;
+  color: brown;
+}
+.show{
+  display: block;
+}
+.hidden{
+  display: none;
+}
+p{
+  padding: 0 12px;
+}

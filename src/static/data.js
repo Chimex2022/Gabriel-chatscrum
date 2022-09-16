@@ -1,6 +1,7 @@
+
 const data = {
-  fullname: "Emerenini Cynthia",
-  email: "emereninicynthia@gmail.com",
+  fullname: "Cynthia Ngozi",
+  email: "cynthiaemerenini37@gmail.com",
   userType: "Owner",
   projectName: "Srumboard"
 }

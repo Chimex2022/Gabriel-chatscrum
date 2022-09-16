@@ -1,68 +1,46 @@
 import React, { Component } from "react";
+import axios from "axios";
 import Data from "../../static/data";
 import Tasks from "../tasks/Tasks";
+import Users from "../users/Users";
+import AddTask from "./AddTask";
 import "./scrumboard.css";
 
 export class Scrumboard extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       data: Data,
       isOpen: false,
-      tasks: "",
+      tasks: [],
     };
   }
-  // open Modal function
-  openModal = () => {
-    this.setState({
-      isOpen: true,
-    });
+  // add task
+  addTask = (task) => {
+    task.id = Math.random().toString(36).slice(2, 9);
+    let tasks = [...this.state.tasks, task];
+    this.setState({ tasks });
   };
-  // close Modal function
-  closeModal = () => {
-    this.setState({
-      isOpen: false,
-    });
+
+  // delete task
+  deleteTask = (id) => {
+    const tasks = this.state.tasks.filter((task) => task.id !== id);
+    this.setState({ tasks });
   };
-  // handle change
-  handleChange = (e) => {
-    this.setState({
-      ...this.state,
-      tasks: e.target.value,
-    });
-  };
-  // handle submit
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.setState({
-      isOpen: false,
-    });
-  };
+
+  componentDidMount() {
+    axios
+      .get("http://liveapi.chatscrum.com/scrum/api/scrumgoals/")
+      .then((res) => {
+        this.setState({ tasks: res.data });
+        console.log(res);
+      });
+  }
 
   render() {
     return (
       <>
-        <div className={this.state.isOpen ? "show" : "hide"}>
-          <div id="modal">
-            <div className="modal-content">
-              <div className="header">
-                <h3>Add a new task</h3>
-                <div id="close" onClick={() => this.closeModal()}>
-                  X
-                </div>
-              </div>
-              <form onSubmit={this.handleSubmit}>
-                <input
-                  type="text"
-                  name="task"
-                  onChange={this.handleChange}
-                  value={this.state.tasks}
-                />
-                <button type="submit">CONFIRM</button>
-              </form>
-            </div>
-          </div>
-        </div>
+        <AddTask addTask={this.addTask} />
         <section className="scrumboard relative">
           <nav>
             <h1>CHATSCRUM</h1>
@@ -77,11 +55,9 @@ export class Scrumboard extends Component {
           </nav>
           <div className="content">
             <p id="info">Hello {Data.fullname}</p>
-            <Tasks />
+            <Tasks data={this.state.tasks} deleteTask={this.deleteTask} />
 
-            <button type="submit" onClick={() => this.openModal()}>
-              ADD TASK
-            </button>
+            <Users />
           </div>
         </section>
       </>
